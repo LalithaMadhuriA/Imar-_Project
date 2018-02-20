@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title></title>
+
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  	<script type="text/javascript" src="script.js"></script>
+
+	<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+ <form action="validate.php" method="post" id="flogin">
+
+ 	<div>
+ 		<span class="glyphicon glyphicon-user"></span><p id="le"></p>
+ 		<input type="text" id="uname" name="uname" placeholder="email" class="form-control"><br>
+ 		<span class="glyphicon glyphicon-lock"></span><p id="lp"></p>
+ 		<input type="Password" id="lpswd" name="lpswd" placeholder="password" class="form-control"> <br><br>
+ 		<button type="submit" class="btn" id="login">Log in</button><br>
+ 	</div> 
+ 	<div id="reg">
+    	<p class="psw"><p id="signup">Register?</p></p>
+    	<p class="psw"><p id="passwrd">ForgotPassword?</p></p>
+  </div>
+ </form> 
+
+ <form action="register.php" method="post" id="sign">
+ 	<div>
+ 		<h4 align="center">Registration Form</h4>
+ 		<label>FirstName:</label><p id="fn"></p> <br> <input type="text" id="fname" name="fname" class="form-control"> <br>
+ 		<label>LastName:</label><p id="ln"></p><br> <input type="text" id="lname" name="lname" class="form-control"> <br>
+ 		<label>email_id:</label><p id="eid"></p><br> <input type="email" id="emailid" name="emailid" class="form-control"> <br>
+ 		<label>Phone No:</label><p id="pn"></p><br> <input type="text" id="phno" name="phno" class="form-control"><br>
+ 		<label>AadhaarNo:</label><p id="aad"></p><br> <input type="text" id="aadno" name="aadno" class="form-control"> <br>
+ 		<label>Password:</label><p id="ps"></p><br> <input type="password" id="pswrd" name="pswrd" class="form-control"> <br>
+ 		<label>Confirm Password:</label><p id="cps"></p><br> <input type="password" id="cpswrd" class="form-control"> <br><p id="msg"></p>
+ 		<button type="button" id="register">Submit</button>
+ 	</div>
+ </form>
+
+ <form action="reset.php" method="post" id="nwpswd">
+ 	<div>
+ 		<h4 align="center">Reset Password</h4>
+ 		<span class="glyphicon glyphicon-user"></span>
+ 		<input type="text" id="unameup" placeholder="email" class="form-control"> <br>
+ 		<span class="glyphicon glyphicon-lock"></span>
+ 		<input type="Password" id="npswd" placeholder="newpassword" class="form-control"> <br>
+ 		<span class="glyphicon glyphicon-lock"></span>
+ 		<input type="Password" id="cpswd" placeholder="Confirm password" class="form-control"><br> <button type="button" class="btn" id="reset">Confirm</button>
+ 	</div>
+ </form>
+
+</body>
+
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="angular.js"></script>
+    <style type="text/css"></style>
+
+    <script type="text/javascript" src="contacts_script.js"></script>
+    <script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+    <link rel="stylesheet" type="text/css" href="contacts_style.css">
+       
+</head>
+<body ng-app="myapp" ng-controller="app_con" ng-init="onpageload()">
+   
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">WebSiteName</a>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+      </ul>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active btn"><a ng-click="onpageload()">Groups</a></li>
+        <li class="dropdown">
+          <a class="btn" data-toggle="dropdown" id="showGroups" ng-click="getAllContacts()">Contacts</a></li>
+        	<li><a class="btn" data-toggle="dropdown" id="sortby">SortBy
+        	 <span class="caret"></span></a>
+        	<ul class="dropdown-menu">
+        		<li><a href="#">Name</a></li>
+        		<li><a href="#">email</a></li>
+        	</ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> LogOut</a></li>
+      </ul>
+    </div>
+      
+  </div>
+</nav>
+
+<!-- Create groups-->
+
+<div class="create_group">
+   <a href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"><img src="addButton.png" width="65" height="50"></a>   
+</div>
+<div class="container-fluid">
+       <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Create Group</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+              <label >Group Name:</label>
+              <input type="text" class="form-control" id="g_name" ng-model="g_name">
+            </div>
+            <div class="form-group">
+              <label >Group Id:</label>
+              <input type="text" class="form-control" id="g_id" ng-model="g_id">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="send()">Create</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!--Display Groups-->
+<div class="container-fluid group_section" ng-hide="hideme">
+    <div class="row">
+         <div class="col-sm-12 col-xs-12">
+              <div ng-repeat="x in collect|orderBy:group_name">
+                    <div class="panel panel-default" >
+                      <div class="panel-heading">{{x.group_name}}
+                      <a class="btn" ng-click="edit_contact()" data-toggle="modal" data-target="#econtact">Edit
+                      </a>
+                      <a class="btn" ng-click="add_to_group()" data-toggle="modal" data-target="#AddContact">
+                        <span class="glyphicon glyphicon-paperclip"></span>
+                      </a>
+                      <a class="btn" ng-click="add_new_contact()" data-toggle="modal" data-target="#ContactModal"  >
+                        <img src="addButton.png" width="20" height="20">
+                      </a>
+                      </div>
+                      <div class="panel-body"><a ng-click="getcontact(x.group_id)" class="btn" data-toggle="modal" data-target="#grp_members">view more....</a></div>
+                      <!--<div class="panel-body" ng-repeat="x in collect">{{x.id}}</div>-->
+                    </div>
+              </div>
+         </div>
+    </div>
+</div>
+
+<!--Create New Contact-->
+
+<div class="modal fade" id="ContactModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Create New Contact</h4>
+        </div>
+        <div class="modal-body">
+          <label>FirstName:</label><p id="fn"></p> <br> <input type="text" id="fname" ng-name="uname" class="form-control"> <br>
+          <label>LastName:</label><p id="ln"></p><br> <input type="text" id="lname" ng-name="lname" class="form-control"> <br>
+          <label>email_id:</label><p id="eid"></p><br> <input type="email" id="emailid" ng-name="emailid" class="form-control"> <br>
+          <label>Phone No:</label><p id="pn"></p><br> <input type="text" id="phno" ng-name="phno" class="form-control"><br>
+          <p id="msg"></p>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" ng-click="add_new_contact()" data-dismiss="modal">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+</div>
+
+
+<!-- Displaying all contacts-->
+
+<div class="container" ng-hide="hideTable">
+  <input class="form-control" id="myInput" type="text" placeholder="Search..">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>User name</th>
+        <th>Email</th>
+        <th>Phone_No</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="y in collect_members">
+        <td>{{y.user_name}}</td>
+        <td>{{y.email_id}}</td>
+        <td>{{y.phone}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Display group contacts-->
+
+<div class="modal fade" id="grp_members" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Group Contacts</h4>
+        </div>
+        <div class="modal-body">
+          <table class="table table-hover">
+            <tr>
+              <th>UName</th>
+              <th>Email</th>
+              <th>Phone No</th>
+            </tr>
+            <tr ng-repeat="data in group_members">
+              <td>{{data.user_name}}</td>
+              <td>{{data.email_id}}</td>
+              <td>{{data.phone}}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" ng-click="onpageload()" data-dismiss="modal">Submit</button>
+        </div>
+      </div>
+    </div>
+</div>
+<!--Edit Contact-->
+
+   <div class="modal fade" id="econtact" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Group Contacts</h4>
+        </div>
+        <div class="modal-body">
+          <table class="table table-hover">
+            <tr>
+              <th>UName</th>
+              <th>Email</th>
+              <th>Phone No</th>
+              <th></th>
+              <th></th>
+            </tr>
+            <tr ng-repeat="data in group_members">
+              <td>{{data.user_name}}</td>
+              <td>{{data.email_id}}</td>
+              <td>{{data.phone}}</td>
+              <td><a class="btn" ng-click="showEditModal(data.user_name,data.email_id,data.phone)">Edit</a></td>
+              <td><a class="btn">Delete</a></td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" ng-click="onpageload()" data-dismiss="modal">Submit</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+<!--Displaying contacts to add them to group-->
+
+<div class="modal fade" id="AddContact" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Contact</h4>
+        </div>
+        <div class="modal-body">
+          <table class="table table-hover">
+            <tr>
+              <th>sno<th>
+              <th>UserName</th>
+              <th>Email</th>
+              <th>Phone No</th>
+            </tr>
+            <tr ng-repeat="y in collect_members">
+              <td><input type="checkbox" ng-model="books[$index].email" ng-true-value="'{{collect_members[$index].email_id}}'"  />
+              </td>
+              <td>{{y.user_name}}</td>
+              <td>{{y.email_id}}</td>
+              <td>{{y.phone}}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" ng-click="add_excontacts()" class="btn btn-default" data-dismiss="modal">Add</button>
+        </div>
+      </div>
+      
+    </div>
+
+
+<!--Edit User Details-->
+
+<div class="modal fade" id="EditUserContact" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Create New Contact</h4>
+        </div>
+        <div class="modal-body">
+          <label>UserName:</label><p id="fn"></p> <br> <input type="text" ng-model="uname" class="form-control"> <br>
+          <label>email_id:</label><p id="eid"></p><br> <input type="email" ng-model="uemail" class="form-control"> <br>
+          <label>Phone No:</label><p id="pn"></p><br> <input type="text" ng-model="uphno" class="form-control"><br>
+          <p id="msg"></p>
+          <button type="button" id="create_contact" class="btn" align="center" >Submit</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" ng-click="update_contact()" data-dismiss="modal">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+</div>
+
+
+
+</body>
+</html>
