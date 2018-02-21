@@ -24,7 +24,7 @@ step 3: Place the source files in the htdocs folder which present inside the xam
 ### How to run 
 
 ````
-step 1: Open the index file in the web browser(eg: localhost/rootfolder/filename)
+step 1: Open the login.html file in the web browser(eg: localhost/rootfolder/filename)
 ````
 ### working procedure
 ````
