@@ -43,12 +43,11 @@ step 7: The user can logout after performing all the operations
 * [HTML5,CSS3,JAVASCRIPT]  -CLIENT SIDE SCRIPTING 
 * [BOOTSTRAP3]             -CSS,JS FRAMEWORK
 * [JQUERY, ANGULAR JSV1]   -JAVASCRIPT FRAMEWORK
-* [PHP5]                   -SERVER SIDE PROGRAMMING 
+* [PHP]                   -SERVER SIDE PROGRAMMING 
 
-##Authors
-
-A. Lalitha Madhuri
-email-id: lalithamadhuri267@gmail.com
+## Authors
+A. Lalitha Madhuri,
+email-id: lalithamadhuri267@gmail.com,
 mobile-no: 9492585919
 
 
