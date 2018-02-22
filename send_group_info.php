@@ -2,11 +2,11 @@
 		$data1=array();
 		//$owner=$_COOKIE['test'];
 		$conn = new mysqli('localhost', 'root', '', 'contacts_management');
-		 
+		$email=$_COOKIE['username']; 
 		 if ($conn->connect_error) {
 		    die("Connection failed: " . $conn->connect_error);
 		 } 
-		 $sql = "SELECT * FROM group_inf ";//where owner_email='$owner' ";
+		 $sql = "SELECT * FROM group_inf";//where owner_email='$owner' ";
 		 $result = $conn->query($sql);
 		 if ($result->num_rows > 0) 
 		 {

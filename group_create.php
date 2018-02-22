@@ -2,8 +2,8 @@
 	
 					$gid=$_POST['gid'];
     				$gname=$_POST['gname'];
-    				$owner_email=$_POST['owner_email'];    				
-
+    				$owner_email=$_COOKIE['username'];    				
+                    
     				$conn = new mysqli('localhost', 'root', '', 'contacts_management');
     				// Check connection
     				if ($conn->connect_error) 

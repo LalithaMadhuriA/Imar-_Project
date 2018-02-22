@@ -1,11 +1,12 @@
 <?php
+       $gid=$_POST['cgid'];
 	   $data1=array();
 		$conn = new mysqli('localhost', 'root', '', 'contacts_management');
 		 
 		 if ($conn->connect_error) {
 		    die("Connection failed: " . $conn->connect_error);
 		 } 
-		 $sql = "SELECT * FROM user_groups where group_id='1204' ";
+		 $sql = "SELECT * FROM user_groups where group_id='$gid' ";
 		 $result = $conn->query($sql);
 		 if ($result->num_rows > 0) 
 		 {
