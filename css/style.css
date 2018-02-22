@@ -1,0 +1,39 @@
+#sign,#nwpswd{
+	display:none;
+}
+button{
+	background-color: #008000;
+	color:white;
+	border: 1px solid white;
+}
+input{
+	border:1px solid grey;
+}
+body{
+	margin-left: 30% ;
+	margin-top: 10%;
+	margin-right: 30%;
+}
+form{
+	border:1px solid lightgrey;
+	background-color: white;
+	padding: 10px;
+	text-align: center;
+}
+span{
+	position: absolute;
+    top: 1px;
+    left: 1px;
+    bottom: 1px;
+    padding-top: 8px;
+    width: 40px;
+    font-size: 20px;
+    border-radius: 4px 0 0 4px;
+    color: #979faf;
+}
+p{
+	display:inline;
+}
+.glyphicon{
+	float:left;
+}
